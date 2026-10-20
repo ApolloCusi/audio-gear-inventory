@@ -27,17 +27,4 @@ def valor_total(inventario):
     """Devuelve la suma de precio x stock de todos los equipos."""
     return sum(datos["precio"] * datos["stock"] for datos in inventario.values())
 
-if __name__ == "__main__":
-    # Prueba manual temporal (la reemplazaremos por pruebas automáticas en la Fase 3)
-    inv = {}
-    agregar_equipo(inv, "Interfaz Focusrite", 4500, 3)
-    agregar_equipo(inv, "Monitor KRK", 7800, 2)
-    print(inv)
 
-    vender_equipo(inv, "Monitor KRK", 1)
-    print(f"Valor total: {valor_total(inv)}")
-
-    try:
-        vender_equipo(inv, "Monitor KRK", 5)
-    except ValueError as error:
-        print(f"Error esperado: {error}")
