@@ -1,6 +1,12 @@
 import pytest
 
-from inventario import agregar_equipo, vender_equipo, valor_total
+from inventario import (
+    agregar_equipo,
+    eliminar_equipo,
+    equipos_con_stock_bajo,
+    valor_total,
+    vender_equipo,
+)
 
 def test_agregar_equipo_nuevo():
     inv = {}
@@ -50,3 +56,25 @@ def test_vender_todo_el_stock_deja_cero():
     inv = {"Mic SM7B": {"precio": 6200, "stock": 2}}
     vender_equipo(inv, "Mic SM7B", 2)
     assert inv["Mic SM7B"]["stock"] == 0
+
+def test_eliminar_equipo():
+    inv = {"A": {"precio": 10, "stock": 1}}
+    eliminar_equipo(inv, "A")
+    assert inv == {}
+
+def test_eliminar_equipo_inexistente_lanza_error():
+    with pytest.raises(ValueError, match="no existe"):
+        eliminar_equipo({}, "A")
+
+
+def test_equipos_con_stock_bajo():
+    inv = {
+        "A": {"precio": 10, "stock": 1},
+        "B": {"precio": 10, "stock": 5},
+        "C": {"precio": 10, "stock": 2},
+    }
+    assert equipos_con_stock_bajo(inv, umbral=2) == {
+        "A": {"precio": 10, "stock": 1},
+        "C": {"precio": 10, "stock": 2},
+    }
+    

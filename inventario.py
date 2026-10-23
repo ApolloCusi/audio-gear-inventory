@@ -27,4 +27,14 @@ def valor_total(inventario):
     """Devuelve la suma de precio x stock de todos los equipos."""
     return sum(datos["precio"] * datos["stock"] for datos in inventario.values())
 
+def eliminar_equipo(inventario, nombre):
+    """Elimina un equipo del inventario. Lanza ValueError si no existe."""
+    if nombre not in inventario:
+        raise ValueError(f"'{nombre}' no existe en el inventario")
+    del inventario[nombre]
+
+def equipos_con_stock_bajo(inventario, umbral=2):
+    """Devuelve un diccionario solo con los equipos cuyo stock es menor o igual al umbral."""
+    return {nombre: datos for nombre, datos in inventario.items() if datos["stock"] <= umbral}
+
 
