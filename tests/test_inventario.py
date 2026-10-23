@@ -77,4 +77,3 @@ def test_equipos_con_stock_bajo():
         "A": {"precio": 10, "stock": 1},
         "C": {"precio": 10, "stock": 2},
     }
-    
